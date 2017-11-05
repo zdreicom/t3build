@@ -1,0 +1,9 @@
+deployer:
+  shared-dirs:
+    - files
+
+  shared-files:
+    - .htaccess
+
+  writable-dirs:
+    - files

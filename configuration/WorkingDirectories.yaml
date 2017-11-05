@@ -1,0 +1,31 @@
+workingDirectories:
+  php:
+    path:
+      - src
+      - tests
+  sass:
+    path:
+      - res/private/sass
+    outputPath: res/public/css
+  composer:
+    path:
+      - ""
+  typescript:
+    path:
+      - res/private/typescript
+    outputPath: res/public/js
+  packages:
+    path: packages
+    prefix:
+      - z3
+  temporary:
+    path: temporary
+
+condition:
+  tags:
+    - self
+  config:
+    workingDirectories:
+      php:
+        path:
+          - src

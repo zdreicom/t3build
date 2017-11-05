@@ -1,0 +1,53 @@
+{
+  "name": "z3/typo3-cms-extension",
+  "type": "typo3-cms-extension",
+  "description": "",
+  "keywords": [],
+  "authors": [
+    {
+      "name": "Timo Poppinga",
+      "role": "Developer",
+      "homepage": "https://www.zdrei.com"
+    }
+  ],
+  "license": [
+    "GPL-2.0+"
+  ],
+  "require": {
+    "typo3/cms": "^8.7 || ^9.0"
+  },
+  "replace": {
+    "news": "self.version",
+    "typo3-ter/news": "self.version"
+  },
+  "config": {
+    "vendor-dir": ".Build/vendor",
+    "bin-dir": ".Build/bin"
+  },
+  "scripts": {
+    "post-autoload-dump": [
+      "mkdir -p .Build/web/typo3conf/ext/",
+      "[ -L .Build/web/typo3conf/ext/typo3-cms-extension ] || ln -snvf ../../../../. .Build/web/typo3conf/ext/typo3-cms-extension",
+      "mkdir -p .Build/vendor/z3/",
+      "[ -L .Build/vendor/z3/t3build ] || ln -snvf ../../../../../../../. .Build/vendor/z3/t3build",
+      "[ -L .Build/bin ] || ln -snvf ../vendor/z3/t3build/bin/t3build .Build/bin/t3build"
+    ]
+  },
+  "extra": {
+    "typo3/cms": {
+      "cms-package-dir": "{$vendor-dir}/typo3/cms",
+      "web-dir": ".Build/web"
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "Z3\\T3build\\": ".Build/vendor/z3/t3build/src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Z3\\T3build\\Tests\\": ".Build/vendor/z3/t3build/tests/"
+    }
+  }
+}
+

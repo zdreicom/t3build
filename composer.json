@@ -1,0 +1,56 @@
+{
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://composer.z3.ag/"
+    },
+    {
+      "packagist.org": false
+    }
+  ],
+  "name": "z3/t3build",
+  "description": "This package supports you for being an typo3 develop and build environment supporting gitlab",
+  "license": ["MIT"],
+  "require": {
+    "php": ">=7.0.0",
+    "z3/t3build-node": "^1.0",
+
+    "symfony/console": "*",
+    "symfony/process": "*",
+
+    "guzzlehttp/guzzle": "^6.3",
+    "cpliakas/git-wrapper": "^1.0",
+
+    "friendsofphp/php-cs-fixer": "^2.0",
+    "deployer/deployer": "^v6.0.0",
+    "deployer/recipes": "^6.0.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Z3\\T3build\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Z3\\T3build\\Tests\\": "tests/"
+    }
+  },
+  "bin": [
+    "bin/commit",
+    "bin/t3build",
+    "bin/t3ci",
+    "bin/t3config",
+    "bin/t3deploy",
+    "bin/t3setup",
+    "bin/t3fetch"
+  ],
+  "config": {
+    "vendor-dir": ".Build/vendor",
+    "bin-dir": ".Build/bin"
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "2.0.x-dev"
+    }
+  }
+}

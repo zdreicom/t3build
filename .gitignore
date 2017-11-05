@@ -1,0 +1,15 @@
+.DS_Store
+.Build
+.idea
+Public
+.php_cs.cache
+/artifacts
+/composer.lock
+/temporary/*
+/res/private
+/res/public
+/configuration/DeployLocalTest.yaml
+!.gitkeep
+
+/deploy.sample.php
+/deploy.php

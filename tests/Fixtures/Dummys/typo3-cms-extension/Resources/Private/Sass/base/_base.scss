@@ -1,0 +1,26 @@
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+*, :after, :before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+*, :after, :before {
+  outline: none;
+  &:hover,
+  &:focus{
+    outline: none;
+  }
+}
+
+html{
+  overflow-x: hidden;
+}
+
+body{
+  background-repeat: repeat;
+  background-size: 8px 8px;
+}

@@ -1,0 +1,42 @@
+ci:
+  gitlab:
+    default:
+      cache:
+        key: "$CI_BUILD_REF_NAME/$CI_BUILD_STAGE"
+        paths:
+          - .composer/
+          - .php_cs.cache
+
+      variables:
+        COMPOSER_CACHE_DIR: ".composer"
+        COMPOSER_PROCESS_TIMEOUT: "1800"
+        COMPOSER_ALLOW_SUPERUSER: "1"
+
+      stages:
+        - composer
+        - lint
+        - cgl
+        - test
+        - build
+        - deploy
+
+    fetchdb:
+      image: php-7.0
+      stage: schedules
+      only:
+        - schedules
+      before_script:
+        - mkdir /root/.ssh
+        - echo "$PRODUCTION_SSH_PUBLIC" > /root/.ssh/id_ecdsa.pub
+        - echo "$PRODUCTION_SSH_PRIVATE" > /root/.ssh/id_ecdsa
+        - chmod 600 /root/.ssh/id_ecdsa
+        - echo "ho0001.z3.ag ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAlxe0IL/kah6Niulw1IVzxaLySJ9pjzzAR7/MUkpUZLAgE/dK3ct1Q1ZHErqpluHJi4eZiOD15tAsu4qVBIlAAhzRetUOjYyqFDpCGPfATrBKNu5mXV9H0gbRATgn57y3jODZi/8Fhg8ElpVvK3xZCTxXm2PzfjuEa9RpnNhN033P6sjfAJ5mUfMJZmPjj/ed9Mf6PlNR+Kx1MSw0NsVN5n8kffKao6x9ZbfKne8hoKn8eaJ1qzgXE2AiMYN0xvsBY4ANE92ZLA0n8Sy9xg8j/e12yGdibyy+UFgxXZkWjn5fz3mfJUwBgMJZQAwR5a2EOEyzlyNyP/TBd6wATqL/UQ==" > /root/.ssh/known_hosts
+      script:
+        - eval "ssh $PRODUCTION_SSH_USER@ho0001.z3.ag  'cd /home/www/$PRODUCTION_SSH_USER/html/pro.$CI_PROJECT_NAME && php_cli vendor/bin/typo3cms database:export'  > pro.$CI_PROJECT_NAME.sql"
+      artifacts:
+        paths:
+        - pro.$CI_PROJECT_NAME.sql
+        expire_in: 1 day
+
+
+

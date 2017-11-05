@@ -1,0 +1,53 @@
+{
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://composer.z3.ag/"
+    },
+    {
+      "type": "path",
+      "url": "packages/*"
+    },
+    {
+      "packagist.org": false
+    }
+  ],
+  "name": "z3/typo3-cms",
+  "description": "",
+  "license": "",
+  "type": "typo3-cms",
+  "require": {
+    "typo3/cms": "^8.7",
+    "z3/z3test": "@dev",
+    "z3/sitepackage_test": "@dev"
+  },
+  "config": {
+    "vendor-dir": ".Build/vendor",
+    "bin-dir": ".Build/bin"
+  },
+  "extra": {
+    "typo3/cms": {
+      "cms-package-dir": "{$vendor-dir}/typo3/cms",
+      "web-dir": ".Build/web"
+    }
+  },
+  "scripts": {
+    "post-autoload-dump": [
+      "mkdir -p .Build/web/typo3conf/ext/",
+      "[ -L .Build/web/typo3conf/ext/typo3-cms-extension ] || ln -snvf ../../../../. .Build/web/typo3conf/ext/typo3-cms-extension",
+      "mkdir -p .Build/vendor/z3/",
+      "[ -L .Build/vendor/z3/t3build ] || ln -snvf ../../../../../../../. .Build/vendor/z3/t3build",
+      "[ -L .Build/bin ] || ln -snvf ../vendor/z3/t3build/bin/t3build .Build/bin/t3build"
+    ]
+  },
+  "autoload": {
+    "psr-4": {
+      "Z3\\T3build\\": ".Build/vendor/z3/t3build/src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Z3\\T3build\\Tests\\": ".Build/vendor/z3/t3build/tests/"
+    }
+  }
+}

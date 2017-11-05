@@ -1,0 +1,9 @@
+build:
+  typescript:
+    compilerOptions:
+      target: es5
+      module: AMD
+      noImplicitAny: true
+      removeComments: true
+      preserveConstEnums: true
+      sourceMap: false

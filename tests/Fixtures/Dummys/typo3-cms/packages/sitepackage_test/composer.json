@@ -1,0 +1,14 @@
+{
+  "name": "z3/sitepackage_test",
+  "type": "typo3-cms-extension",
+  "description": "",
+  "authors": [
+    {
+      "name": "Timo Poppinga",
+      "role": "Product Manager"
+    }
+  ],
+  "require": {
+    "typo3/cms-core": "^8.7"
+  }
+}
