@@ -18,12 +18,13 @@
     "symfony/console": "*",
     "symfony/process": "*",
 
-    "guzzlehttp/guzzle": "~6.2.0",
-    "cpliakas/git-wrapper": "~1.0.0",
+    "guzzlehttp/guzzle": "^6.2.0",
+    "cpliakas/git-wrapper": "^1.0.0",
 
-    "friendsofphp/php-cs-fixer": "~1.0.0 || ~2.0.0",
-    "deployer/deployer": "~v6.0.0",
-    "deployer/recipes": "~6.0.0"
+    "friendsofphp/php-cs-fixer": "^2.0.0",
+
+    "deployer/deployer": "^v6.0.0",
+    "deployer/recipes": "^6.0.0"
   },
   "autoload": {
     "psr-4": {
