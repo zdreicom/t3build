@@ -72,6 +72,7 @@ class Host extends AbstractJob
         $localConfiguration->setConfigurationString('deploy/' . $environment . '/host', $account . '.mittwaldserver.info');
         $localConfiguration->setConfigurationString('deploy/' . $environment . '/user', $account);
         $localConfiguration->setConfigurationString('deploy/' . $environment . '/path', '/home/www/' . $account . '/html/' . $environment . '.' . $gitProject->getFullName());
+        $localConfiguration->setConfigurationString('deploy/' . $environment . '/publicUrl', 'http://' . $account . '.mittwaldserver.info/' . $environment . '.' . $gitProject->getFullName() . '/current/web');
         file_put_contents($localConfigurationFile, $localConfiguration->exportConfigurationYaml());
     }
 }
