@@ -290,6 +290,11 @@ class Paths
         return $this->workingBinDirectory;
     }
 
+    public function getWorkingWebDirectory(): string
+    {
+        return $this->workingWebDirectory;
+    }
+
     /**
      * @return string
      */
