@@ -5,6 +5,7 @@ namespace Z3\T3build\Job\Build\System;
 
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Process\Process;
 use Z3\T3build\Job\AbstractJob;
 use Z3\T3build\Job\Build\BuildSass;
@@ -57,6 +58,11 @@ class Typo3 extends AbstractJob
         $output->writeln("\r\033[K\033[1A\r<info>✔</info>");
 
         Bootstrap::switchWorkingDirectory($buildDirectory);
+
+        // Add opcache_reset() reset file
+        $workingWebDirectory = Config::getPaths()->getWorkingWebDirectory();
+        $fileSystem = new Filesystem();
+        $fileSystem->dumpFile($workingWebDirectory . '/opcache_reset.php', '<?php opcache_reset(); unlink(__FILE__);');
 
         // Build Css Files
         $buildSassJob = new BuildSass();
