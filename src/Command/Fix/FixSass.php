@@ -55,7 +55,7 @@ class FixSass extends AbstractPackageCommandNode
     private function fixFile($inputFile)
     {
         $fixSass = NodePaths::getNodeExecutable() . ' ' . NodePaths::getNodeBinDirectory() . '/stylefmt';
-        $outputFile = BasePaths::getT3buildTempDirectory() . '/scss-temp.scss';
+        $outputFile = Config::getPaths()->getT3BuildSourceDirectory() . '/scss-temp.scss';
 
         $processString  = '';
         $processString .= 'cat ' . $inputFile . ' | ';
