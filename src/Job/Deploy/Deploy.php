@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Z3\T3build\Job\Deploy;
 
+use GuzzleHttp\Client;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Z3\T3build\Job\AbstractJob;
@@ -75,7 +76,12 @@ class Deploy extends AbstractJob
     private function postJobTypo3(InputInterface $input, OutputInterface $output, array $arguments = [])
     {
         $environment = $arguments['environment'];
-        //$this->executeRemoteCommand($environment, 'php_cli bin/t3ci clear:opcache');
+
+        $publicUrl = Config::getProjectConfiguration()->getConfigurationString('deploy/' . $environment . '/publicUrl', '');
+        if (strlen(publicUrl) > 0) {
+            $client = new Client();
+            $res = $client->get($publicUrl . '/opcache_reset.php');
+        }
         $this->executeRemoteCommand($environment, 'php_cli bin/typo3cms database:updateschema');
         $this->executeRemoteCommand($environment, 'php_cli bin/typo3cms cache:flush');
         $this->executeRemoteCommand($environment, 'php_cli bin/typo3cms database:updateschema');
