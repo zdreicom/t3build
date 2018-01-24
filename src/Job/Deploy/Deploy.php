@@ -78,7 +78,7 @@ class Deploy extends AbstractJob
         $environment = $arguments['environment'];
 
         $publicUrl = Config::getProjectConfiguration()->getConfigurationString('deploy/' . $environment . '/publicUrl', '');
-        if (strlen(publicUrl) > 0) {
+        if (strlen($publicUrl) > 0) {
             $client = new Client();
             $res = $client->get($publicUrl . '/opcache_reset.php');
         }
