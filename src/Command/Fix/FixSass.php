@@ -8,7 +8,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Process;
 use Z3\T3build\Command\AbstractPackageCommandNode;
 use Z3\T3build\Domain\Model\Package;
-use Z3\T3build\Service\Path\BasePaths;
 use Z3\T3build\Utility\FileDirectoryUtility;
 use Z3\T3buildNode\Service\Path\NodePaths;
 
@@ -55,7 +54,7 @@ class FixSass extends AbstractPackageCommandNode
     private function fixFile($inputFile)
     {
         $fixSass = NodePaths::getNodeExecutable() . ' ' . NodePaths::getNodeBinDirectory() . '/stylefmt';
-        $outputFile = BasePaths::getT3buildTempDirectory() . '/scss-temp.scss';
+        $outputFile = Config::getPaths()->getT3BuildSourceDirectory() . '/scss-temp.scss';
 
         $processString  = '';
         $processString .= 'cat ' . $inputFile . ' | ';

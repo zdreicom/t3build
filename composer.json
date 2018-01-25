@@ -17,6 +17,7 @@
 
     "symfony/console": "*",
     "symfony/process": "*",
+    "symfony/filesystem": "*",
 
     "guzzlehttp/guzzle": "^6.2.0",
     "cpliakas/git-wrapper": "^1.1.0",

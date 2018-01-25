@@ -100,7 +100,7 @@ class Commit extends AbstractJob
 
         $yesNo = $io->choice('You like to commit', ['yes' => 'y', 'no' => 'n'], 'n');
 
-        if ($yesNo === 'n') {
+        if ($yesNo === 'no') {
             return;
         }
 
