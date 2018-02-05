@@ -76,7 +76,7 @@ class Deploy extends AbstractJob
     private function postJobTypo3(InputInterface $input, OutputInterface $output, array $arguments = [])
     {
         $environment = $arguments['environment'];
-        $php = Config::getProjectConfiguration()->getConfigurationString('deployer/php', 'php');
+        $php = Config::getProjectConfiguration()->getConfigurationString('deploy/php', 'php');
 
         $publicUrl = Config::getProjectConfiguration()->getConfigurationString('deploy/' . $environment . '/publicUrl', '');
         if (strlen($publicUrl) > 0) {
@@ -96,7 +96,7 @@ class Deploy extends AbstractJob
     private function postJobNeos(InputInterface $input, OutputInterface $output, array $arguments = [])
     {
         $environment = $arguments['environment'];
-        $php = Config::getProjectConfiguration()->getConfigurationString('deployer/php', 'php');
+        $php = Config::getProjectConfiguration()->getConfigurationString('deploy/php', 'php');
 
         $this->executeRemoteCommand($environment, 'rm -rf Data/Temporary');
         $this->executeRemoteCommand($environment, $php . ' ./flow flow:cache:flush');

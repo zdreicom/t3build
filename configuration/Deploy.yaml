@@ -8,4 +8,5 @@ deployer:
   writable-dirs:
     - files
 
+deploy:
   php: php_cli
