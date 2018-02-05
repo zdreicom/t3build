@@ -76,15 +76,16 @@ class Deploy extends AbstractJob
     private function postJobTypo3(InputInterface $input, OutputInterface $output, array $arguments = [])
     {
         $environment = $arguments['environment'];
+        $php = Config::getProjectConfiguration()->getConfigurationArray('deployer/php', 'php');
 
         $publicUrl = Config::getProjectConfiguration()->getConfigurationString('deploy/' . $environment . '/publicUrl', '');
         if (strlen($publicUrl) > 0) {
             $client = new Client();
             $res = $client->get($publicUrl . '/opcache_reset.php');
         }
-        $this->executeRemoteCommand($environment, 'php_cli bin/typo3cms database:updateschema');
-        $this->executeRemoteCommand($environment, 'php_cli bin/typo3cms cache:flush');
-        $this->executeRemoteCommand($environment, 'php_cli bin/typo3cms database:updateschema');
+        $this->executeRemoteCommand($environment, $php . ' bin/typo3cms database:updateschema');
+        $this->executeRemoteCommand($environment, $php . ' bin/typo3cms cache:flush');
+        $this->executeRemoteCommand($environment, $php . ' bin/typo3cms database:updateschema');
     }
 
     /**
@@ -95,9 +96,11 @@ class Deploy extends AbstractJob
     private function postJobNeos(InputInterface $input, OutputInterface $output, array $arguments = [])
     {
         $environment = $arguments['environment'];
+        $php = Config::getProjectConfiguration()->getConfigurationArray('deployer/php', 'php');
+
         $this->executeRemoteCommand($environment, 'rm -rf Data/Temporary');
-        $this->executeRemoteCommand($environment, 'php_cli ./flow flow:cache:flush');
-        $this->executeRemoteCommand($environment, 'php_cli ./flow doctrine:update');
+        $this->executeRemoteCommand($environment, $php . ' ./flow flow:cache:flush');
+        $this->executeRemoteCommand($environment, $php . ' ./flow doctrine:update');
     }
 
     /**
