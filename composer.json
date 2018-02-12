@@ -44,7 +44,8 @@
     "bin/t3config",
     "bin/t3deploy",
     "bin/t3setup",
-    "bin/t3fetch"
+    "bin/t3fetch",
+    "bin/t3time"
   ],
   "config": {
     "vendor-dir": ".Build/vendor",
