@@ -214,6 +214,10 @@ class Bootstrap
                 $application->add(new \Z3\T3build\Command\Fetch\Files());
                 $application->add(new \Z3\T3build\Command\Database\CopyRemote());
                 break;
+            case 'time':
+                $application->add(new \Z3\T3build\Command\Time\TimeCorrection());
+                $application->add(new \Z3\T3build\Command\Time\TimeStart());
+                break;
             default:
         }
 

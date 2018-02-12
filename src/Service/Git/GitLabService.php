@@ -73,7 +73,7 @@ class GitLabService
     public function addCommitPush(string $type, int $issueNumber, string $message, int $minutes)
     {
         $commitMessage = '[' . $type . '] #' . $issueNumber . ' ' . $message;
-        if ($minutes > 0) {
+        if ($minutes > 0 || $minutes < 0) {
             $commitMessage .= ' /s' . $minutes;
         }
 
@@ -82,6 +82,14 @@ class GitLabService
                 'm' => $commitMessage
             ])
             ->push();
+    }
+
+    /**
+     * @param string $file
+     */
+    public function addFile(string $file)
+    {
+        $this->git->add($file);
     }
 
     /**

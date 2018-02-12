@@ -1,0 +1,29 @@
+#!/usr/bin/env php
+<?php
+
+ini_set('display_errors', 1);
+// application.php
+$projectRootPath = getcwd();
+$composerJsonPath = $projectRootPath . '/composer.json';
+
+if (!is_file($composerJsonPath)) {
+    throw new \UnexpectedValueException('No composer.json in root path: ' . $projectRootPath);
+}
+
+$composerConfig = json_decode(file_get_contents($composerJsonPath));
+if ($composerConfig === null) {
+    throw new \UnexpectedValueException('Could not parse composer.json.');
+}
+
+if (property_exists($composerConfig, 'config')) {
+    $config = $composerConfig->config;
+    $vendorDirectory = $config->{'vendor-dir'} ?? './vendor';
+} else {
+    $vendorDirectory = './vendor';
+}
+
+require $vendorDirectory . '/autoload.php';
+
+$bootstrap = new \Z3\T3build\Service\Bootstrap();
+$bootstrap->run();
+$bootstrap->loadApplication('time');
