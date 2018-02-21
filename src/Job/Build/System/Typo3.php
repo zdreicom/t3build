@@ -62,7 +62,8 @@ class Typo3 extends AbstractJob
         // Add opcache_reset() reset file
         $workingWebDirectory = Config::getPaths()->getWorkingWebDirectory();
         $fileSystem = new Filesystem();
-        $fileSystem->dumpFile($workingWebDirectory . '/opcache_reset.php', '<?php opcache_reset(); unlink(__FILE__);');
+        $opcacheReset = '<?php if(function_exists("opcache_reset")) {opcache_reset(); echo "opcache reset";} else {echo "opcache not reset";} unlink(__FILE__);';
+        $fileSystem->dumpFile($workingWebDirectory . '/opcache_reset.php', $opcacheReset);
 
         // Build Css Files
         $buildSassJob = new BuildSass();
