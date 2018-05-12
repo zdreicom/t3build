@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Z3\T3build\Command\Build;
 
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Z3\T3build\Job\Build\System\Neos as NeosBuildSystemJob;
@@ -19,6 +20,7 @@ class BuildSystem extends Command
             ->setName('build:system')
             // the short description shown while running "php bin/console list"
             ->setDescription('Build the System');
+        $this->addArgument('versionName', InputArgument::OPTIONAL, 'The name of the version', '');
     }
 
     /**

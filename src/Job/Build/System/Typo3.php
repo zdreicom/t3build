@@ -9,6 +9,7 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Process\Process;
 use Z3\T3build\Job\AbstractJob;
 use Z3\T3build\Job\Build\BuildSass;
+use Z3\T3build\Job\Version\Set;
 use Z3\T3build\Service\Bootstrap;
 use Z3\T3build\Service\Config;
 
@@ -53,6 +54,12 @@ class Typo3 extends AbstractJob
         $output->writeln("\r\033[K\033[1A\r<info>✔</info>");
 
         Bootstrap::switchWorkingDirectory($buildDirectory);
+
+        $versionName =  $input->getArgument('versionName');
+        if ($versionName !== '') {
+            $versionSet = new Set();
+            $versionSet->runSingleJob($input, $output, []);
+        }
 
         // Composer Setup
         $output->writeln('➤ Composer install without dev');
