@@ -60,6 +60,9 @@ class Set extends AbstractJob
             return 1;
         }
 
+        $fileSystem->copy($composerFile, $workingWebDirectory. '/composer.json', true);
+        $fileSystem->copy($composerLockFile, $workingWebDirectory. '/composer.lock', true);
+
         return null;
     }
 }
