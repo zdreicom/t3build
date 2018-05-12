@@ -42,7 +42,7 @@ class Set extends AbstractJob
         $versionName =  $input->getArgument('versionName');
         $workingWebDirectory = Config::getPaths()->getWorkingWebDirectory();
 
-        $versionDirectory = $workingWebDirectory . '/Version/' . $versionName;
+        $versionDirectory = $workingWebDirectory . '/version/' . $versionName;
         $composerFile =  $versionDirectory . '/composer.json';
         $composerLockFile =  $versionDirectory . '/composer.lock';
 
