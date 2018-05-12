@@ -40,9 +40,9 @@ class Set extends AbstractJob
     protected function runSingleJob(InputInterface $input, OutputInterface $output, array $arguments = []): ?int
     {
         $versionName =  $input->getArgument('versionName');
-        $workingWebDirectory = Config::getPaths()->getWorkingWebDirectory();
+        $workingRootDirectory = Config::getPaths()->getWorkingRootDirectory();
 
-        $versionDirectory = $workingWebDirectory . '/version/' . $versionName;
+        $versionDirectory = $workingRootDirectory . '/version/' . $versionName;
         $composerFile =  $versionDirectory . '/composer.json';
         $composerLockFile =  $versionDirectory . '/composer.lock';
 
