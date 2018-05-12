@@ -12,7 +12,7 @@
   "description": "This package supports you for being an typo3 develop and build environment supporting gitlab",
   "license": ["MIT"],
   "require": {
-    "php": ">=7.0.0",
+    "php": "^7.1.0 || ^7.2.0",
     "z3/t3build-node": "^1.0",
 
     "symfony/console": "*",

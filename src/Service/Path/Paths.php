@@ -188,10 +188,18 @@ class Paths
 
     private function addTypo3Path()
     {
-        putenv('TYPO3_PATH_COMPOSER_ROOT=' . $this->workingRootDirectory);
         /** @toDo: Load web dir from composer.json */
+        putenv('TYPO3_PATH_COMPOSER_ROOT=' . $this->workingRootDirectory);
+        $_ENV['TYPO3_PATH_COMPOSER_ROOT'] = $this->workingRootDirectory;
+
+        putenv('TYPO3_PATH_APP=' . $this->workingRootDirectory);
+        $_ENV['TYPO3_PATH_APP'] = $this->workingRootDirectory;
+
         putenv('TYPO3_PATH_ROOT=' . $this->workingRootDirectory . '/web');
+        $_ENV['TYPO3_PATH_ROOT'] =  $this->workingRootDirectory . '/web';
+
         putenv('TYPO3_PATH_WEB=' . $this->workingRootDirectory . '/web');
+        $_ENV['TYPO3_PATH_WEB'] = $this->workingRootDirectory . '/web';
     }
 
     /**
