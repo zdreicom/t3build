@@ -43,10 +43,20 @@ class Set extends AbstractJob
         $workingWebDirectory = Config::getPaths()->getWorkingWebDirectory();
 
         $versionDirectory = $workingWebDirectory . '/Version/' . $versionName;
+        $composerFile =  $versionDirectory . '/composer.json';
+        $composerLockFile =  $versionDirectory . '/composer.lock';
 
         $fileSystem = new Filesystem();
         if ($fileSystem->exists($versionDirectory) === false) {
             $output->writeln('<error>Version does not exist</error>');
+            return 1;
+        }
+        if ($fileSystem->exists($composerFile) === false) {
+            $output->writeln('<error>composer.json does not exist</error>');
+            return 1;
+        }
+        if ($fileSystem->exists($composerLockFile) === false) {
+            $output->writeln('<error>composer.lock does not exist</error>');
             return 1;
         }
 
