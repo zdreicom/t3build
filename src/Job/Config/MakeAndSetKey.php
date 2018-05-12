@@ -49,10 +49,10 @@ class MakeAndSetKey extends AbstractJob
      * @param InputInterface $input
      * @param OutputInterface $output
      * @param array $arguments
+     * @return int|null
      * @throws \Exception
-     * @return void
      */
-    public function runSingleJob(InputInterface $input, OutputInterface $output, array $arguments = [])
+    public function runSingleJob(InputInterface $input, OutputInterface $output, array $arguments = []): ?int
     {
         $environment = $arguments['environment'];
         $projectConfigurationDirectory = Config::getPaths()->getProjectRootDirectory() . '/configuration';
@@ -83,6 +83,8 @@ class MakeAndSetKey extends AbstractJob
         $this->writeKeyToAuthorizedKeys($environment, $key);
         $this->writePrivateKeyToGitLab('KEY_' . strtoupper($environment), $key->getPrivate(), $environment);
         $this->writePrivateKeyToGitLab('PASSPHRASE_' . strtoupper($environment), $key->getPassphrase(), $environment);
+
+        return null;
     }
 
     /**

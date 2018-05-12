@@ -36,8 +36,9 @@ class Deploy extends AbstractJob
      * @param InputInterface $input
      * @param OutputInterface $output
      * @param array $arguments
+     * @return int|null
      */
-    protected function runSingleJob(InputInterface $input, OutputInterface $output, array $arguments = [])
+    protected function runSingleJob(InputInterface $input, OutputInterface $output, array $arguments = []): ?int
     {
         $type = Bootstrap::getRootPackage()->getType();
 
@@ -66,6 +67,8 @@ class Deploy extends AbstractJob
                 $this->postJobNeos($input, $output, $arguments);
                 break;
         }
+
+        return null;
     }
 
     /**

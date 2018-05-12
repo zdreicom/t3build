@@ -38,8 +38,10 @@ class Typo3 extends AbstractJob
      * @param InputInterface $input
      * @param OutputInterface $output
      * @param array $arguments
+     * @return int|null
+     * @throws \Exception
      */
-    protected function runSingleJob(InputInterface $input, OutputInterface $output, array $arguments = [])
+    protected function runSingleJob(InputInterface $input, OutputInterface $output, array $arguments = []): ?int
     {
         $buildDirectory = Config::getPaths()->getT3BuildTemporaryDirectory() . '/build';
 
@@ -50,14 +52,14 @@ class Typo3 extends AbstractJob
         $process->mustRun();
         $output->writeln("\r\033[K\033[1A\r<info>✔</info>");
 
+        Bootstrap::switchWorkingDirectory($buildDirectory);
+
         // Composer Setup
         $output->writeln('➤ Composer install without dev');
         $processString = 'composer install --no-dev';
         $process = new Process($processString, $buildDirectory);
         $process->mustRun();
         $output->writeln("\r\033[K\033[1A\r<info>✔</info>");
-
-        Bootstrap::switchWorkingDirectory($buildDirectory);
 
         // Add opcache_reset() reset file
         $workingWebDirectory = Config::getPaths()->getWorkingWebDirectory();
@@ -83,5 +85,7 @@ class Typo3 extends AbstractJob
         $process = new Process($processString);
         $process->mustRun();
         $output->writeln("\r\033[K\033[1A\r<info>✔</info>");
+
+        return null;
     }
 }

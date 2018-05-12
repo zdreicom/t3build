@@ -190,6 +190,8 @@ class Bootstrap
                 $application->add(new \Z3\T3build\Command\Build\BuildTypeScript());
                 $application->add(new \Z3\T3build\Command\Build\BuildSystem());
 
+                $application->add(new \Z3\T3build\Command\Version\Set());
+
                 break;
             case 'deploy':
                 $application->add(new \Z3\T3build\Command\Deploy\Deploy());

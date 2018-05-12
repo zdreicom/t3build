@@ -46,8 +46,9 @@ class Commit extends AbstractJob
      * @param InputInterface $input
      * @param OutputInterface $output
      * @param array $arguments
+     * @return int|null
      */
-    public function runSingleJob(InputInterface $input, OutputInterface $output, array $arguments = [])
+    public function runSingleJob(InputInterface $input, OutputInterface $output, array $arguments = []): ?int
     {
         $git = new GitLabService();
         $issueNumber = $git->guessIssueNumber();
@@ -101,11 +102,13 @@ class Commit extends AbstractJob
         $yesNo = $io->choice('You like to commit', ['yes' => 'y', 'no' => 'n'], 'n');
 
         if ($yesNo === 'no') {
-            return;
+            return null;
         }
 
         $git->addCommitPush($type, (int) $issueNumber, $message, (int) $minutes);
         $this->setSpeendTime(time());
+
+        return null;
     }
 
     /**

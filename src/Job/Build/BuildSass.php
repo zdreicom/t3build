@@ -56,8 +56,9 @@ class BuildSass extends AbstractJob
      * @param InputInterface $input
      * @param OutputInterface $output
      * @param array $arguments
+     * @return int|null
      */
-    protected function runSingleJob(InputInterface $input, OutputInterface $output, array $arguments = [])
+    protected function runSingleJob(InputInterface $input, OutputInterface $output, array $arguments = []): ?int
     {
         $scssFiles = FileDirectoryUtility::getFilesInDir($this->path->getInputPath(), 'scss');
 
@@ -68,5 +69,7 @@ class BuildSass extends AbstractJob
             $process = new Process($processString);
             $process->mustRun();
         }
+
+        return null;
     }
 }

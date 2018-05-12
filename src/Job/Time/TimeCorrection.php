@@ -46,8 +46,9 @@ class TimeCorrection extends AbstractJob
      * @param InputInterface $input
      * @param OutputInterface $output
      * @param array $arguments
+     * @return int|null
      */
-    public function runSingleJob(InputInterface $input, OutputInterface $output, array $arguments = [])
+    public function runSingleJob(InputInterface $input, OutputInterface $output, array $arguments = []): ?int
     {
         $git = new GitLabService();
         $issueNumber = $git->guessIssueNumber();
@@ -81,7 +82,7 @@ class TimeCorrection extends AbstractJob
         $yesNo = $io->choice('You like to commit', ['yes' => 'y', 'no' => 'n'], 'n');
 
         if ($yesNo === 'no') {
-            return;
+            return null;
         }
 
         $filesystem = new Filesystem();
@@ -89,6 +90,8 @@ class TimeCorrection extends AbstractJob
         $filesystem->appendToFile('time_correction.txt', '[TIME] ' . $minutes . "\t" . $message . "\n");
         $git->addFile('time_correction.txt');
         $git->addCommitPush('TIME', (int) $issueNumber, $message, (int) $minutes);
+
+        return null;
     }
 
     private function validatIssue($issueNumber)

@@ -35,8 +35,10 @@ class Files extends AbstractJob
      * @param InputInterface $input
      * @param OutputInterface $output
      * @param array $arguments
+     * @return int|null
+     * @throws \Exception
      */
-    protected function runSingleJob(InputInterface $input, OutputInterface $output, array $arguments = [])
+    protected function runSingleJob(InputInterface $input, OutputInterface $output, array $arguments = []): ?int
     {
         $environment = $arguments['environment'];
 
@@ -51,5 +53,7 @@ class Files extends AbstractJob
         $command = 'ssh ' . $user . '@' . $host . ' \'cd ' . $projectPath . ' && tar cf -  shared | gzip\'  > ' . $dumpFile;
         $process = new Process($command, null, null, null, 3600);
         $process->mustRun();
+
+        return null;
     }
 }

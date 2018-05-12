@@ -35,8 +35,9 @@ class CopyRemote extends AbstractJob
      * @param InputInterface $input
      * @param OutputInterface $output
      * @param array $arguments
+     * @return int|null
      */
-    protected function runSingleJob(InputInterface $input, OutputInterface $output, array $arguments = [])
+    protected function runSingleJob(InputInterface $input, OutputInterface $output, array $arguments = []): ?int
     {
         $environment = $arguments['environment'];
 
@@ -50,5 +51,7 @@ class CopyRemote extends AbstractJob
         $command = 'ssh ' . $user . '@' . $host . ' \'' . $remoteCommand . '\'' . $localCommand;
         $process = new Process($command, null, null, null, 3600);
         $process->mustRun();
+
+        return null;
     }
 }

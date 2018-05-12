@@ -50,13 +50,16 @@ class LintPhp extends AbstractJob
      * @param InputInterface $input
      * @param OutputInterface $output
      * @param array $arguments
+     * @return int|null
      */
-    protected function runSingleJob(InputInterface $input, OutputInterface $output, array $arguments = [])
+    protected function runSingleJob(InputInterface $input, OutputInterface $output, array $arguments = []): ?int
     {
         $processString = Config::getPaths()->getT3buildBinDirectory() . '/php-cs-fixer fix'
             . ' --config=' . $this->configFile . ' -v --dry-run --using-cache=no';
 
         $process = new Process($processString);
         $process->mustRun();
+
+        return null;
     }
 }

@@ -37,8 +37,10 @@ class Neos extends AbstractJob
      * @param InputInterface $input
      * @param OutputInterface $output
      * @param array $arguments
+     * @return int|null
+     * @throws \Exception
      */
-    protected function runSingleJob(InputInterface $input, OutputInterface $output, array $arguments = [])
+    protected function runSingleJob(InputInterface $input, OutputInterface $output, array $arguments = []): ?int
     {
         $buildDirectory = Config::getPaths()->getT3BuildTemporaryDirectory() . '/build';
 
@@ -69,5 +71,7 @@ class Neos extends AbstractJob
         $process = new Process($processString);
         $process->mustRun();
         $output->writeln("\r\033[K\033[1A\r<info>✔</info>");
+
+        return null;
     }
 }

@@ -1,49 +1,34 @@
 <?php
 declare(strict_types=1);
 
-namespace Z3\T3build\Job\Fix;
+namespace Z3\T3build\Job\Version;
 
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Process\Process;
+use Symfony\Component\Filesystem\Filesystem;
 use Z3\T3build\Job\AbstractJob;
 use Z3\T3build\Service\Config;
 
-class FixPhp extends AbstractJob
+class Set extends AbstractJob
 {
     public function getJobClass(): string
     {
-        return '';
+        return 'version';
     }
 
     public function getJobTask(): string
     {
-        return 'fix';
+        return 'set';
     }
 
     public function getJobType(): string
     {
-        return 'php';
+        return 'set';
     }
 
     public function getDescription(): string
     {
-        return 'Fixes the PHP files';
-    }
-
-    public function isMultiJob(): bool
-    {
-        return true;
-    }
-
-    public function needInputPath(): bool
-    {
-        return true;
-    }
-
-    public function needConfigFile(): bool
-    {
-        return true;
+        return 'Set the system version';
     }
 
     /**
@@ -54,11 +39,16 @@ class FixPhp extends AbstractJob
      */
     protected function runSingleJob(InputInterface $input, OutputInterface $output, array $arguments = []): ?int
     {
-        $processString = Config::getPaths()->getT3buildBinDirectory() . '/php-cs-fixer fix'
-            . ' --config=' . $this->configFile . ' -v --using-cache=no';
+        $versionName =  $input->getArgument('versionName');
+        $workingWebDirectory = Config::getPaths()->getWorkingWebDirectory();
 
-        $process = new Process($processString);
-        $process->mustRun();
+        $versionDirectory = $workingWebDirectory . '/Version/' . $versionName;
+
+        $fileSystem = new Filesystem();
+        if ($fileSystem->exists($versionDirectory) === false) {
+            $output->writeln('<error>Version does not exist</error>');
+            return 1;
+        }
 
         return null;
     }

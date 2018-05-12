@@ -44,10 +44,12 @@ class TimeStart extends AbstractJob
      * @param InputInterface $input
      * @param OutputInterface $output
      * @param array $arguments
+     * @return int|null
      */
-    public function runSingleJob(InputInterface $input, OutputInterface $output, array $arguments = [])
+    public function runSingleJob(InputInterface $input, OutputInterface $output, array $arguments = []): ?int
     {
         $this->setSpeendTime(time());
+        return null;
     }
 
     /**

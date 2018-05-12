@@ -107,8 +107,9 @@ abstract class AbstractJob implements JobInterface
      * @param InputInterface $input
      * @param OutputInterface $output
      * @param array $arguments
+     * @return int|null
      */
-    protected function runSingleJob(InputInterface $input, OutputInterface $output, array $arguments = [])
+    protected function runSingleJob(InputInterface $input, OutputInterface $output, array $arguments = []): ?int
     {
         throw new LogicException('You must override the runSingleJob() method in the concrete command class.');
     }

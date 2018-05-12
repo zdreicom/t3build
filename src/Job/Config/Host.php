@@ -46,10 +46,10 @@ class Host extends AbstractJob
      * @param InputInterface $input
      * @param OutputInterface $output
      * @param array $arguments
+     * @return int|null
      * @throws \Exception
-     * @return void
      */
-    public function runSingleJob(InputInterface $input, OutputInterface $output, array $arguments = [])
+    public function runSingleJob(InputInterface $input, OutputInterface $output, array $arguments = []): ?int
     {
         $environment = $arguments['environment'];
         $account = $arguments['account'];
@@ -74,5 +74,7 @@ class Host extends AbstractJob
         $localConfiguration->setConfigurationString('deploy/' . $environment . '/path', '/home/www/' . $account . '/html/' . $environment . '.' . $gitProject->getFullName());
         $localConfiguration->setConfigurationString('deploy/' . $environment . '/publicUrl', 'http://' . $account . '.mittwaldserver.info/' . $environment . '.' . $gitProject->getFullName() . '/current/web');
         file_put_contents($localConfigurationFile, $localConfiguration->exportConfigurationYaml());
+
+        return null;
     }
 }
